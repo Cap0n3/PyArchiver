@@ -13,7 +13,7 @@ CURR_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe(
 PARENT_DIR = os.path.dirname(CURR_DIR)
 sys.path.insert(0, PARENT_DIR)
 
-from main import main  # Import the main function from main.py
+from pyarchiver import main  # Import the main function from main.py
 from backup_utility import BackupUtility
 
 
@@ -69,7 +69,7 @@ class MainTestCase(unittest.TestCase):
                 "poetry",
                 "run",
                 "python",
-                "main.py",
+                "pyarchiver.py",
                 "backup",
                 f"{self.source_dir}/file1.txt",
                 f"{self.source_dir}/file2.txt",
@@ -107,7 +107,7 @@ class MainTestCase(unittest.TestCase):
                 "poetry",
                 "run",
                 "python",
-                "main.py",
+                "pyarchiver.py",
                 "extract",
                 "--archive-path",
                 f"{archive_file_name}",
@@ -118,49 +118,6 @@ class MainTestCase(unittest.TestCase):
             ],
             check=True,
         )
-        
-        #self.assertTrue(os.path.isfile(os.path.join(self.destination_dir, 'file1.txt')))
-        
-    # #@unittest.skip("Skipping test_main_backup")
-    # @patch('sys.argv', ['main.py', 'backup', 'test_source/file1.txt', 'test_source/file2.txt', '--destination', 'test_destination'])
-    # def test_main_backup(self):
-    #     with patch('sys.stdout', new=StringIO()) as fake_output:
-    #         main()
-    #         output = fake_output.getvalue().strip()
-    #         print(output)
-    #         # Check if the files were backed up
-    #         self.assertTrue(os.path.isfile(os.path.join(self.destination_dir, 'file1.txt')))
-    #         self.assertTrue(os.path.isfile(os.path.join(self.destination_dir, 'file2.txt')))
-
-    # @unittest.skip("Skipping test_main_extract")
-    # @patch('sys.argv', ['main.py', 'extract', '--archive-path', 'test_destination/archive.7z', '--destination', 'test_destination'])
-    # def test_main_extract(self):
-    #     # Create an archive first
-    #     backup_utility = BackupUtility(destination=self.destination_dir, archive=True, passphrase="abc")
-    #     backup_list = [
-    #         os.path.join(self.source_dir, 'file1.txt'),
-    #         os.path.join(self.source_dir, 'file2.txt'),
-    #         os.path.join(self.source_dir, 'file3.txt'),
-    #         self.subFolder1_path
-    #     ]
-    #     backup_utility.process_list(backup_list, verbose=True)
-    #     archive_files = glob.glob(os.path.join(self.destination_dir, '*.7z'))
-    #     self.assertTrue(len(archive_files) > 0, "No .7z archive file found in the destination directory")
-
-    #     # Rename the archive file to match the expected name
-    #     archive_file_path = archive_files[0]
-    #     os.rename(archive_file_path, os.path.join(self.destination_dir, 'archive.7z'))
-
-    #     with patch('sys.stdout', new=StringIO()) as fake_output:
-    #         main()
-    #         output = fake_output.getvalue().strip()
-    #         # Check if the files were extracted
-    #         extracted_path = os.path.join(self.destination_dir, 'archive')
-    #         self.assertTrue(os.path.isfile(os.path.join(extracted_path, 'file1.txt')))
-    #         self.assertTrue(os.path.isfile(os.path.join(extracted_path, 'file2.txt')))
-    #         self.assertTrue(os.path.isfile(os.path.join(extracted_path, 'file3.txt')))
-    #         self.assertTrue(os.path.isdir(os.path.join(extracted_path, 'subFolder1')))
-
 
 if __name__ == "__main__":
     unittest.main()

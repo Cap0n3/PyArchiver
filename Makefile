@@ -1,7 +1,7 @@
 # to use run with args: make run ARGS="backup -h"
 .PHONY: run
 run:
-	poetry run python main.py $(ARGS)
+	poetry run python pyarchiver.py $(ARGS)
 
 .PHONY: main_test
 main_test:
