@@ -10,7 +10,7 @@ CURR_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe(
 PARENT_DIR = os.path.dirname(CURR_DIR)
 sys.path.insert(0, PARENT_DIR)
 
-from main import BackupUtility
+from backup_utility import BackupUtility
 
 class BackupTestCase(unittest.TestCase):
     def setUp(self):

@@ -1,7 +1,7 @@
 .PHONY: run
 run:
-	python main.py
+	poetry run python main.py
 
 .PHONY: test
 test:
-	python Tests/tests.py
+	poetry run python Tests/tests.py
