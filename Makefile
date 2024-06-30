@@ -2,7 +2,11 @@
 .PHONY: run
 run:
 	poetry run python main.py $(ARGS)
-	
-.PHONY: test
-test:
-	poetry run python Tests/tests.py
+
+.PHONY: main_test
+main_test:
+	poetry run python Tests/main_tests.py
+
+.PHONY: util_test
+util_test:
+	poetry run python Tests/backup_utility_tests.py
