@@ -4,6 +4,7 @@ import datetime
 import py7zr
 import errno
 
+
 class BackupUtility:
     """
     Class for backing up files and directories.
@@ -16,19 +17,20 @@ class BackupUtility:
         If True, the backup will be saved as archive_YYYY-MM-DD__HH.MM.SS.7z in the destination path.
     passphrase : str, optional
         Passphrase for the archive.
-        
+
     Examples
     --------
-    
+
     # Create an archive of the backup list
     backup_utility = BackupUtility(destination="/path/to/destination", archive=True, passphrase="your_passphrase")
     backup_utility.process_list(["/path/to/source1", "/path/to/source2"])
-    
+
     # Extract an archive with a passphrase
     backup_utility = BackupUtility(destination="/path/to/destination", passphrase="your_passphrase")
     backup_utility.extract_archive_with_passphrase("/path/to/archive.7z", "/path/to/destination")
-    
+
     """
+
     def __init__(self, destination, archive=False, passphrase=None):
         """
         Initialize the backup utility.
@@ -105,13 +107,19 @@ class BackupUtility:
         os.makedirs("tmp", exist_ok=True)
         for item in backup_list:
             self._copy_item(item, "tmp", verbose=verbose)
-        with py7zr.SevenZipFile(f"{self.destination}/archive_{archive_name}.7z", "w", password=self.passphrase) as archive:
+        with py7zr.SevenZipFile(
+            f"{self.destination}/archive_{archive_name}.7z",
+            "w",
+            password=self.passphrase,
+        ) as archive:
             archive.writeall("tmp", archive_name)
         shutil.rmtree("tmp")
         if verbose:
             print(f"Archive created: {self.destination}/archive_{archive_name}.7z")
 
-    def extract_archive_with_passphrase(self, archive_path, destination_path, verbose=False):
+    def extract_archive_with_passphrase(
+        self, archive_path, destination_path, verbose=False
+    ):
         """
         Extract an archive with a passphrase.
 
@@ -127,18 +135,15 @@ class BackupUtility:
         if not destination_path:
             destination_path = self.destination
             if verbose:
-                print(f"Destination path not provided. Using {destination_path} as destination path.")
-        
-        with py7zr.SevenZipFile(archive_path, 'r', password=self.passphrase) as archive:
+                print(
+                    f"Destination path not provided. Using {destination_path} as destination path."
+                )
+
+        with py7zr.SevenZipFile(archive_path, "r", password=self.passphrase) as archive:
             archive.extractall(destination_path)
-            
+
         if verbose:
             print(f"Archive extracted: {archive_path}")
-
-
-
-
-
 
 
 # # TO REVISIT
